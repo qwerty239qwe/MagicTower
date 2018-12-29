@@ -3,7 +3,7 @@
 #include <string>
 namespace Textures 
 { 
-	enum ID { BackGround, NPC1, NPC2, Tile1, Tile2}; 
+	enum ID { BackGround, Teacher, NPC2, Tile1, Tile2}; 
 }
 
 class TextureManager
