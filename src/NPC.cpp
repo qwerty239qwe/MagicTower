@@ -1,5 +1,5 @@
 #include "NPC.h"
-
+ 
 NPC::NPC( Position l_position, int l_what, int l_type, std::string l_dialogue) 
 {	
 	n_position.x = l_position.x;
