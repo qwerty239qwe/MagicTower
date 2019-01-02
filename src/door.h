@@ -1,21 +1,20 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "texture.h"
+#include "player.h"
 class door
 {
 public:
 	door();
-	door(int l_stage, int l_size, sf::Vector2u l_position, sf::Texture& l_texture);
+	door(int d_x, int d_y, int d_level, int d_what, int d_type);
 	~door();
-	void collide(sf::Vector2u l_position, int keyNum);
-
-	void draw(sf::RenderTarget& target, int n_stage, int map[][]) const;
-
+	sf::Sprite n_sprite;
+	void oncollision(Player& l_player);
 
 private:
-	int n_size;
-	int n_stage;
-	bool** n_position;
-	bool n_passable;
-	sf::Sprite n_sprite;
+	int level;
+	int x;
+	int y;
+	int what;
+	int type;	
 };

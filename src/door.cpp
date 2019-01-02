@@ -1,42 +1,100 @@
 #include "door.h"
-door::door(int l_stage, int l_size, sf::Vector2u l_position, sf::Texture& l_texture)
+door::door(int d_x, int d_y, int d_level, int d_what, int d_type)
 {
-	n_size = l_size;
-	n_stage = l_stage;
-	n_sprite.setTexture(l_texture);
-	n_passable = 0;
-}
+	sf::Sprite n_sprite;
+	int level = d_level;
+	int x = d_x;
+	int y = d_y;
+	int what = d_what;
+	int type = d_type;
 
+	
+}
+void door::oncollision(Player& l_player)
+{
+	if (type = 0)  //Àð¾À
+	{
+		return;
+	}
+	if (type = 1)  //¶Àªù
+	{
+		if (l_player.yellowKeys > 0)
+		{
+			l_player.yellowKeys--;
+			what = 0;
+		}
+	}
+	if (type = 2)  //¬õªù
+	{
+		if (l_player.redKeys > 0)
+		{
+			l_player.redKeys--;
+			what = 0;
+		}
+	}
+	if (type = 3)  //ÂÅªù
+	{
+		if (l_player.blueKeys > 0)
+		{
+			l_player.blueKeys--;
+			what = 0;
+		}
+	}
+	if (type = 4)  //¶ÀÆ_°Í
+	{
+		l_player.yellowKeys++;
+		what = 0;
+	}
+	if (type = 5)  //¬õÆ_°Í
+	{
+		l_player.redKeys++;
+		what = 0;
+	}
+	if (type = 6)  //ÂÅÆ_°Í
+	{
+		l_player.blueKeys++;
+		what = 0;
+	}
+	if (type = 7)  //¶¥±è¤U
+	{
+		level++;
+	}
+	if (type = 8)  //¶¥±è¤W
+	{
+		level--;
+	}
+	if (type = 9)  //redÃÄ¤ô
+	{
+		l_player.hp++;
+		what = 0;
+	}
+	if (type = 10)  //blueÃÄ¤ô
+	{
+		l_player.hp++;
+		what = 0;
+	}
+	if (type = 11)  //ÅKªù
+	{
+		what = 0;
+	}
+	if (type = 12)  //¼C
+	{
+		l_player.atk++;
+		what = 0;
+	}
+	if (type = 13)  //¬ÞµP
+	{
+		l_player.def++;
+		what = 0;
+	}
+}
 
 door::~door()
 {
 
 }
-void door::collide(sf::Vector2u l_position, int keyNum)
-{
-	if (i == )
-	{
-		if (keyNum >= 1)
-		{
-			n_passable[i] = 1;
-			keyNum = keyNum - 1;
-		}
-	}
 
-}
-
-void door::draw(sf::RenderTarget & target, int n_stage,int map[][]) const
+void door::draw(sf::RenderTarget & target, int n_stage,int map[][11]) const
 {
-	int j =  n_stage;
-	for (int i = 0; i < 11; i++)
-	{
-		for (int i = 0; i < 11; i++)
-		{
-			if (number[j][i] == 1)
-			{
-				n_sprite.setTexture->setPosition(i * 88, j * 88);
-				target.draw(n_sprite);
-			}
-		}
-	}
+	window.draw(n_sprite);
 }
