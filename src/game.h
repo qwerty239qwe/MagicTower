@@ -9,6 +9,7 @@ const std::string SPRITE_PATH = ".\/resources\/sprites\/";
 const std::string FONT_PATH = ".\/resources\/font\/";
 
 
+
 namespace Screen
 {
 	enum ID { MainMenu, MainGame, Infomation, EndScreen };
