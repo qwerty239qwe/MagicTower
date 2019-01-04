@@ -10,19 +10,44 @@ Monster::Monster(Position l_position, int l_what, int l_type)
 	switch (type)
 	{
 	case(1):
-		m_exp = 2;
-		m_hp = 20;
-		m_def = 5;
+		m_exp = 1;
+		m_hp = 36;
+		m_def = 4;
+		m_atk = 12;
+		m_money = 5;
+		break;
+	case(2):
+		m_exp = 1;
+		m_hp = 10;
+		m_def = 8;
 		m_atk = 15;
-		m_money = 1;
-		break;
+		m_money = 4;
+	case(3):
+		m_exp = 2;
+		m_hp = 42;
+		m_def = 16;
+		m_atk = 25;
+		m_money = 4;
+	case(4):
+		m_exp = 2;
+		m_hp = 32;
+		m_def = 20;
+		m_atk = 40;
+		m_money = 15;
+	case(5):
+		m_exp = 8;
+		m_hp = 105;
+		m_def = 40;
+		m_atk = 85;
+		m_money = 80;
 	default:
-		m_exp = 3;
+		m_exp = 100;
 		m_hp = 50;
-		m_def = 30;
-		m_atk = 10;
-		m_money = 2;
+		m_def = 120;
+		m_atk = 400;
+		m_money = 400;
 		break;
+		
 	}
 }
 
@@ -37,8 +62,26 @@ void Monster::onCollision(Player& l_player)
 			if (m_atk - l_player.p_def > 0)
 				l_player.p_hp -= (m_atk - l_player.p_def);
 		}
+		if (l_player.p_hp <= 0)
+		{
+			l_player.p_isDead = true;
+			break;
+		}
 	}
-	what = 0;
+	if (m_hp <= 0)
+	{
+		what = 0;
+		l_player.p_exp += m_exp;
+		l_player.p_money += m_money;
+	}
+	//level up
+	if (l_player.p_exp >= 70)
+	{
+		l_player.p_exp = 0;
+		l_player.p_hp += 100;
+		l_player.p_def += 10;
+		l_player.p_atk += 10;
+	}
 }
 void Monster::draw(sf::RenderTarget& l_target)const
 {

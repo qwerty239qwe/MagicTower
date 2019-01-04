@@ -15,7 +15,6 @@ public:
 	Player(Position p_position, int level, int exp, int atk, int def,
 		   int hp, int money, int yellowKeys, int redKeys, int blueKeys);
 	~Player() { ; }
-	bool isDead(bool dead);
 	
 	sf::Sprite p_playerSprite;
 
@@ -32,7 +31,7 @@ private:
 	int p_yellowKeys;
 	int p_redKeys;
 	int p_blueKeys;
-	
+	bool p_isDead;
 	
 
 

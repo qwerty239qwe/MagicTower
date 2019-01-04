@@ -3,7 +3,8 @@
 #include "texture.h"
 
 Player::Player(Position l_position, int l_level, int l_exp, int l_atk, 
-	int l_def, int l_hp, int l_money, int l_yellowKeys, int l_redKeys, int l_blueKeys)
+	int l_def, int l_hp, int l_money, int l_yellowKeys, int l_redKeys,
+	int l_blueKeys)
 {
 	
 	p_position.x = l_position.x;
@@ -18,8 +19,7 @@ Player::Player(Position l_position, int l_level, int l_exp, int l_atk,
 	p_yellowKeys = l_yellowKeys;
 	p_redKeys = l_redKeys;
 	p_blueKeys = l_blueKeys;
+	p_isDead = false;
 }
-bool Player::isDead(bool dead)
-{
-	return dead;
-}
+
+

@@ -65,12 +65,12 @@ void door::oncollision(Player& l_player)
 	}
 	if (type = 9)  //redÃÄ¤ô
 	{
-		l_player.hp++;
+		l_player.hp+=150;
 		what = 0;
 	}
 	if (type = 10)  //blueÃÄ¤ô
 	{
-		l_player.hp++;
+		l_player.hp += 300;
 		what = 0;
 	}
 	if (type = 11)  //ÅKªù
@@ -79,12 +79,12 @@ void door::oncollision(Player& l_player)
 	}
 	if (type = 12)  //¼C
 	{
-		l_player.atk++;
+		l_player.atk+= 5;
 		what = 0;
 	}
 	if (type = 13)  //¬ÞµP
 	{
-		l_player.def++;
+		l_player.def+=5;
 		what = 0;
 	}
 }
