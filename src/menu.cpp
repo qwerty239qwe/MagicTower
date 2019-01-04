@@ -1,6 +1,6 @@
 #include "menu.h"
 
-Menu::Menu(sf::Sprite &backgroundImg, sf::Font buttonFont, sf::Color buttonColor, sf::Color selectedColor):
+Menu::Menu(sf::Sprite &backgroundImg, sf::Font buttonFont, sf::Color buttonColor, sf::Color selectedColor, BGMmanager& bgm):
 	backgroundImg(backgroundImg),
 	buttonFont(buttonFont),
 	buttonFontSize(60),
@@ -9,6 +9,7 @@ Menu::Menu(sf::Sprite &backgroundImg, sf::Font buttonFont, sf::Color buttonColor
 	selectedID(0),
 	activeID(-1)
 {
+	bgm.play(BGM::menuBGM);
 	Button btn1{ GameStart, "Game Start"};
 	Button btn2{ Load, "Load Game"};
 	Button btn3{ Info, "How to play?"};
@@ -90,4 +91,9 @@ void Menu::render(sf::RenderWindow &l_window)
 		drawButton(i, l_window);
 	}
 	l_window.display();
+}
+
+void Menu::resetActiveID()
+{
+	activeID = -1;
 }

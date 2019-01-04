@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include "sound.h"
 
 enum ButtonOptions {
 	GameStart,
@@ -18,11 +19,10 @@ struct Button
 class Menu
 {
 public:
-	Menu(sf::Sprite &backgroundImg, sf::Font buttonFont, sf::Color buttonColor, sf::Color selectedColor);
+	Menu(sf::Sprite &backgroundImg, sf::Font buttonFont, sf::Color buttonColor, sf::Color selectedColor, BGMmanager& bgm);
 	int getActiveID();
-	void changeSelection(int dID);
+	void resetActiveID();
 	void processEvent(sf::RenderWindow &l_window);
-	void drawButton(int &buttonID, sf::RenderWindow &l_window);
 	void render(sf::RenderWindow &l_window);
 
 private:
@@ -34,4 +34,6 @@ private:
 	int selectedID;
 	int activeID;
 	int buttonFontSize;					// in pixels
+	void drawButton(int &buttonID, sf::RenderWindow &l_window);
+	void changeSelection(int dID);
 };
