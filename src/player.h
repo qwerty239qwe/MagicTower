@@ -17,7 +17,7 @@ public:
 	//~Player() { ; }
 	bool isDead();
 	void draw(sf::RenderWindow &l_window) const;
-	
+
 private:
 	sf::Sprite p_playerSprite;
 	int p_floor;
