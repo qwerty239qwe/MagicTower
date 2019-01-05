@@ -2,7 +2,7 @@
 
 
 MainGame::MainGame(TextureManager &l_textures, Player &l_player, FileManager &l_omniData, DialogBox &l_dialogBox, DialogBox &l_transactionBox, sf::Font& l_EnglishFont, sf::Font& l_ChineseFont) :
-	xPlayerPos(1), yPlayerPos(1), 
+	xPlayerPos(5), yPlayerPos(9), 
 	sleepTime(sf::seconds(0.01)), 
 	mDialogBox(l_dialogBox), mTransactionBox(l_transactionBox),
 	mEnglishFont(l_EnglishFont), mChineseFont(l_ChineseFont), mFloor(0)
@@ -52,7 +52,7 @@ void MainGame::processEvents(sf::RenderWindow& l_window, const sf::Time &timePas
 
 			if (event.type == sf::Event::Closed)
 				l_window.close();
-			else if (event.type == sf::Event::KeyPressed)
+			else if (event.type == sf::Event::KeyPressed && !mPlayer->isPlayerDead)
 			{
 				handlePlayerInput(event.key.code, true);
 			}
@@ -93,6 +93,8 @@ void MainGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
 {
 	if (!mIsCoolingDown && isPressed)
 	{
+		mSoundPlayer.setBuffer(mSoundBuffer.get(Sound::Walk));
+		mSoundPlayer.play();
 		if (key == sf::Keyboard::Up)
 		{
 			mPlayer->p_playerSprite.setTextureRect(sf::IntRect(sf::Vector2i(12 * 44, 0), sf::Vector2i(44, 44)));
@@ -137,7 +139,16 @@ void MainGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
 }
 
 
-
+bool MainGame::isPlayerAlive()
+{
+	if (mPlayer->isPlayerDead)
+	{
+		mSoundPlayer.setBuffer(mSoundBuffer.get(Sound::Dead));
+		mSoundPlayer.play();
+	}
+		
+	return !mPlayer->isPlayerDead;
+}
 
 void MainGame::setObjPosition(sf::Sprite& obj, float xPosIndex, float yPosIndex)
 {
@@ -170,6 +181,8 @@ bool MainGame::isCollide(int deltaX, int deltaY)
 	{
 		if (xPlayerPos + deltaX == mMonsterData[monsterID][0] && yPlayerPos + deltaY == mMonsterData[monsterID][1] && mFloor == mMonsterData[monsterID][2] && !mMons.findMonster(static_cast<Monsterid::ID>(monsterID)).isDead)
 		{
+			mSoundPlayer.setBuffer(mSoundBuffer.get(Sound::Battle));
+			mSoundPlayer.play();
 			mMons.findMonster(static_cast<Monsterid::ID>(monsterID)).onCollision(*mPlayer);
 			return true;
 		}
@@ -180,6 +193,18 @@ bool MainGame::isCollide(int deltaX, int deltaY)
 		if (xPlayerPos + deltaX == mTileData[tileID][0] && yPlayerPos + deltaY == mTileData[tileID][1] && mFloor == mTileData[tileID][2] && !mTiles.findTile(static_cast<TileID::ID>(tileID)).isDead)
 		{
 			mTiles.findTile(static_cast<TileID::ID>(tileID)).onCollision(*mPlayer, mFloor);
+			if (mTileData[tileID][4] == 7)
+			{
+				mSoundPlayer.setBuffer(mSoundBuffer.get(Sound::Upstair));
+				mSoundPlayer.play();
+				setDownStairPosition();
+			}
+			else if (mTileData[tileID][4] == 8)
+			{
+				mSoundPlayer.setBuffer(mSoundBuffer.get(Sound::Upstair));
+				mSoundPlayer.play();
+				setUpStairPosition();
+			}
 			return true;
 		}
 	}
@@ -257,4 +282,98 @@ void MainGame::renderAttributes(sf::RenderWindow& l_window)
 	l_window.draw(redKeyValue);
 	l_window.draw(moneyValue);
 	l_window.draw(floorValue);
+}
+
+void MainGame::setDownStairPosition()
+{
+	switch (mFloor)
+	{
+	case (0):
+		xPlayerPos = 5;
+		yPlayerPos = 2;
+		break;
+	case (1):
+		xPlayerPos = 8;
+		yPlayerPos = 1;
+		break;
+	case 2:
+		xPlayerPos = 9;
+		yPlayerPos = 8;
+		break;
+	case 3:
+		xPlayerPos = 2;
+		yPlayerPos = 9;
+		break;
+	case 4:
+		xPlayerPos = 1;
+		yPlayerPos = 2;
+		break;
+	case 5:
+		xPlayerPos = 1;
+		yPlayerPos = 8;
+		break;
+	case 6:
+		xPlayerPos = 2;
+		yPlayerPos = 1;
+		break;
+	case 7:
+		xPlayerPos = 6;
+		yPlayerPos = 8;
+		break;
+	case 8:
+		xPlayerPos = 9;
+		yPlayerPos = 2;
+		break;
+	case 9:
+		xPlayerPos = 1;
+		yPlayerPos = 6;
+		break;
+	}
+}
+
+void MainGame::setUpStairPosition()
+{
+	switch (mFloor)
+	{
+	case (10):
+		xPlayerPos = 5;
+		yPlayerPos = 8;
+		break;
+	case (1):
+		xPlayerPos = 4;
+		yPlayerPos = 1;
+		break;
+	case 2:
+		xPlayerPos = 9;
+		yPlayerPos = 2;
+		break;
+	case 3:
+		xPlayerPos = 8;
+		yPlayerPos = 9;
+		break;
+	case 4:
+		xPlayerPos = 2;
+		yPlayerPos = 9;
+		break;
+	case 5:
+		xPlayerPos = 2;
+		yPlayerPos = 1;
+		break;
+	case 6:
+		xPlayerPos = 1;
+		yPlayerPos = 8;
+		break;
+	case 7:
+		xPlayerPos = 2;
+		yPlayerPos = 1;
+		break;
+	case 8:
+		xPlayerPos = 5;
+		yPlayerPos = 8;
+		break;
+	case 9:
+		xPlayerPos = 9;
+		yPlayerPos = 2;
+		break;
+	}
 }

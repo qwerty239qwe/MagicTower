@@ -61,7 +61,7 @@ NPCmanager::NPCmanager(std::vector<std::vector<int>> &data, TextureManager &l_te
 		default:
 			break;
 		}
-		npcVec[npcID].n_npcSprite.setTexture(l_textures.get(Textures::TeacherStand));
+		npcVec[npcID].n_npcSprite.setTexture(l_textures.get(Textures::NPC));
 		npcVec[npcID].n_npcSprite.setScale(sf::Vector2f(10/8, 10/8));
 		//npcVec[npcID].n_npcSprite.setTextureRect(sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(40, 40)));
 		npcVec[npcID].n_npcSprite.setPosition(npcVec[npcID].n_xPos * GRID_LEN, npcVec[npcID].n_yPos* GRID_LEN);

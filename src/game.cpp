@@ -22,6 +22,12 @@ void Game::run()
 	BGMmanager bgm;
 	Menu mainMenu(mBGSprite, mEnglishFont, sf::Color::Black, sf::Color::White, bgm);
 	
+	// gameOver info
+	sf::Text gameOverTxt("Game Over", mEnglishFont, 100);
+	gameOverTxt.setFillColor(sf::Color(150, 50, 50));
+	gameOverTxt.setOutlineThickness(5);
+	gameOverTxt.setOutlineColor(sf::Color::White);
+	gameOverTxt.setPosition(4 * GRID_LEN, 4 * GRID_LEN);
 
 	//test info
 	std::string firstLine = "This line shall be printed";
@@ -83,11 +89,16 @@ void Game::run()
 			{
 				mainGame->processEvents(mWindow, timeSinceLastUpdate);
 				timeSinceLastUpdate -= TimePerFrame;
+				if (!mainGame->isPlayerAlive())
+				{
+					mCurrentScreen = Screen::EndScreen;
+				}
 				
 				mainGame->update();
 				
 			}
 			
+
 			mainGame->render(mWindow);
 			
 			break;
@@ -107,6 +118,28 @@ void Game::run()
 			infoDialog.renderDialogBox(mWindow, true);
 			break;
 		case (Screen::EndScreen):
+			timeSinceLastUpdate += clock.restart();
+			sf::Event event;
+
+			while (mWindow.pollEvent(event))
+			{
+
+				if (event.type == sf::Event::Closed)
+					mWindow.close();
+				else if (event.type == sf::Event::KeyPressed)
+				{
+					if (event.key.code == sf::Keyboard::Space)
+					{
+						mainMenu.resetActiveID();
+						mCurrentScreen = Screen::MainMenu;
+					}
+						
+				}
+				
+			}
+			mWindow.clear();
+			mWindow.draw(gameOverTxt);
+			mWindow.display();
 			break;
 		}
 	}

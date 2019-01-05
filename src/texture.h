@@ -10,8 +10,8 @@ namespace Textures
 	enum ID { BackGround, DialogBig, DialogMedium, DialogSmall, Map, 
 		Teacher, TeacherStand, NPC, NPC2,
 		Wall, UpStair, DownStair, RedDoor, BlueDoor, YellowDoor, IronDoor,
-		RedKey, BlueKey, YellowKey, RedPosion, BluePosion,
-		Slime, Slime2};
+		RedKey, BlueKey, YellowKey, RedPosion, BluePosion, Sword, Shield,
+		Slime, Slime2, Skeleton};
 }
 
 class TextureManager

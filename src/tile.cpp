@@ -46,10 +46,10 @@ void Tile::onCollision(Player &l_player, int &floor)
 		l_player.p_blueKeys++;
 		isDead = true;
 		break;
-	case 7:		// Upstair
+	case 7:		// Downstair
 		floor--;
 		break;
-	case 8:		// DownStair
+	case 8:		// UpStair
 		floor++;
 		break;
 	case 9:		// red posion
@@ -116,11 +116,22 @@ TileManager::TileManager(std::vector<std::vector<int>> &data, TextureManager &l_
 		case 8:
 			tileVec[tileID].t_tileSprite.setTexture(l_textures.get(Textures::UpStair));
 			break;
+		case 9:
+			tileVec[tileID].t_tileSprite.setTexture(l_textures.get(Textures::RedPosion));
+			break;
+		case 10:
+			tileVec[tileID].t_tileSprite.setTexture(l_textures.get(Textures::BluePosion));
+			break;
 		case 11:
 			tileVec[tileID].t_tileSprite.setTexture(l_textures.get(Textures::IronDoor));
 			break;
+		case 12:
+			tileVec[tileID].t_tileSprite.setTexture(l_textures.get(Textures::Sword));
+			break;
+		case 13:
+			tileVec[tileID].t_tileSprite.setTexture(l_textures.get(Textures::Shield));
+			break;
 		default:
-			tileVec[tileID].t_tileSprite.setTexture(l_textures.get(Textures::Slime));
 			break;
 		}
 		

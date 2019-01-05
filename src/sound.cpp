@@ -6,8 +6,9 @@ BGMmanager::BGMmanager()
 	mVolume(100.f),
 	mFilenames()
 {
-	mFilenames[BGM::menuBGM] = BGM_PATH + "BGM1.wav";
-	mFilenames[BGM::mainBGM] = BGM_PATH + "main.ogg";
+	mFilenames[BGM::menuBGM] = BGM_PATH + "menuBGM.ogg";
+	mFilenames[BGM::mainBGM] = BGM_PATH + "mainBGM.ogg";
+	mFilenames[BGM::EndBGM] = BGM_PATH + "mainBGM.ogg";
 }
 
 void BGMmanager::play(BGM::ID id)
@@ -38,30 +39,26 @@ void BGMmanager::setVolume(float volume)
 
 SoundManager::SoundManager()
 {
-	load(Sound::menuBGM, "bookClose.ogg");
+	load(Sound::Walk, "walk.ogg");
+	load(Sound::Battle, "battle.ogg");
+	load(Sound::Upstair, "upstair.ogg");
+	load(Sound::Dead, "dead.ogg");
 }
 
 void SoundManager::load(Sound::ID id, const std::string &filename)
 {
-	sf::SoundBuffer tempSB;
-	if (tempSB.loadFromFile(SOUND_PATH + filename))
-		std::cout << filename << " is loaded";
-	sf::Sound testSound;
-	testSound.setBuffer(tempSB);
-	testSound.play();
-	std::unique_ptr <sf::Sound> sound(new sf::Sound);
-	//sound->setBuffer(tempSB);
-	//sound->play();
+	std::unique_ptr <sf::SoundBuffer> sound(new sf::SoundBuffer);
+	sound->loadFromFile(SOUND_PATH + filename);
 	mSoundStorage.insert(std::make_pair(id, std::move(sound)));
 }
 
-sf::Sound& SoundManager::get(Sound::ID id)
+sf::SoundBuffer& SoundManager::get(Sound::ID id)
 {
 	auto found = mSoundStorage.find(id);
 	return *found->second;
 }
 
-const sf::Sound& SoundManager::get(Sound::ID id) const
+const sf::SoundBuffer& SoundManager::get(Sound::ID id) const
 {
 	auto found = mSoundStorage.find(id);
 	return *found->second;

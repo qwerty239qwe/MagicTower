@@ -3,7 +3,7 @@
 TextureManager::TextureManager()
 {
 	load(Textures::Teacher, "TeacherAni.png");
-	load(Textures::TeacherStand, "heyTeacher.png");
+	load(Textures::NPC, "NPC.png");
 	load(Textures::BackGround, "testBG.jpg");
 	load(Textures::DialogBig, "dialog_B.png");
 	load(Textures::DialogMedium, "dialog_M.png");
@@ -19,8 +19,13 @@ TextureManager::TextureManager()
 	load(Textures::YellowDoor, "yellowDoor.png");
 	load(Textures::BlueDoor, "blueDoor.png");
 	load(Textures::IronDoor, "ironDoor.png");
+	load(Textures::RedPosion, "redPotion.png");
+	load(Textures::BluePosion, "bluePotion.png");
+	load(Textures::Sword, "sword.png");
+	load(Textures::Shield, "shield.png");
 	load(Textures::Slime, "slime.png");
 	load(Textures::Slime2, "Blueslime.png");
+	load(Textures::Skeleton, "skeleton.png");
 }
 
 void TextureManager::load(Textures::ID id, const std::string& filename)

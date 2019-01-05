@@ -15,9 +15,10 @@ public:
 	Player(int& l_floor, int level, int exp, int atk, int def,
 		   int hp, int money, int yellowKeys, int redKeys, int blueKeys);
 	//~Player() { ; }
-	bool isDead();
+	//bool isDead();
 	void draw(sf::RenderWindow &l_window) const;
-
+	
+	
 private:
 	sf::Sprite p_playerSprite;
 	int p_floor;

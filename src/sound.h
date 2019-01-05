@@ -8,14 +8,14 @@
 namespace BGM
 {
 	enum ID {
-		menuBGM, mainBGM
+		menuBGM, mainBGM, EndBGM
 	};
 }
 
 namespace Sound
 {
 	enum ID {
-		menuBGM, mainBGM
+		Walk, Battle, Upstair, Dead
 	};
 }
 
@@ -39,8 +39,8 @@ class SoundManager
 public:
 	SoundManager();
 	void load(Sound::ID id, const std::string &filename);
-	sf::Sound& get(Sound::ID id);
-	const sf::Sound& get(Sound::ID id) const;
+	sf::SoundBuffer& get(Sound::ID id);
+	const sf::SoundBuffer& get(Sound::ID id) const;
 private:
-	std::map <Sound::ID, std::unique_ptr<sf::Sound>> mSoundStorage;
+	std::map <Sound::ID, std::unique_ptr<sf::SoundBuffer>> mSoundStorage;
 };

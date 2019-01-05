@@ -19,6 +19,7 @@ public :
 	void update();
 	void render(sf::RenderWindow &l_window);
 	void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
+	bool isPlayerAlive();
 
 private:
 	// Time
@@ -30,6 +31,8 @@ private:
 	NPCmanager mNPCs;
 	MonsterManager mMons;
 	TileManager mTiles;
+	SoundManager mSoundBuffer;
+	sf::Sound mSoundPlayer;
 	std::vector<std::vector<int>> mNPCdata;
 	std::vector<std::vector<int>> mMonsterData;
 	std::vector<std::vector<int>> mTileData;
@@ -50,6 +53,8 @@ private:
 	int yPlayerPos;
 	int mFloor;
 	void setObjPosition(sf::Sprite& obj, float xPosIndex, float yPosIndex);
+	void setUpStairPosition();
+	void setDownStairPosition();
 	void renderAttributes(sf::RenderWindow& l_window);
 	// void loadGame(bool loadExistGame);
 
