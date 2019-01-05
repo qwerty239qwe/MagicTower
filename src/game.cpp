@@ -20,7 +20,7 @@ void Game::run()
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 
 	BGMmanager bgm;
-	Menu mainMenu(mBGSprite, mEnglishFont, sf::Color::Black, sf::Color::White, bgm);
+	Menu mainMenu(mBGSprite, mEnglishFont, sf::Color::Color(50, 50, 50, 150), sf::Color::Color(180, 50, 50,255), bgm);
 	
 	// gameOver info
 	sf::Text gameOverTxt("Game Over", mEnglishFont, 100);

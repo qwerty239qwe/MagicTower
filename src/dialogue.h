@@ -6,11 +6,12 @@
 #include "player.h"
 
 enum SellingOption {
+	None,
 	IncreaseHP,
 	IncreaseAttack,
-	IncreaseDefense,
-	ReturnGame,
-	None = -1
+	IncreaseDefense
+	//ReturnGame
+	
 };
 
 struct SellingButton {

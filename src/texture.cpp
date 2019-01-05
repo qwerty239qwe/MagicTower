@@ -4,7 +4,7 @@ TextureManager::TextureManager()
 {
 	load(Textures::Teacher, "TeacherAni.png");
 	load(Textures::NPC, "NPC.png");
-	load(Textures::BackGround, "testBG.jpg");
+	load(Textures::BackGround, "BGimage.png");
 	load(Textures::DialogBig, "dialog_B.png");
 	load(Textures::DialogMedium, "dialog_M.png");
 	load(Textures::DialogSmall, "dialog_S.png");

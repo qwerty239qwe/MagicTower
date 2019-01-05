@@ -12,7 +12,7 @@ DialogBox::DialogBox(sf::RenderWindow& l_window, std::string &charName, std::vec
 	dialogBoxSprite(dialogBoxSp),
 	useChFont(false),
 	isTransacting(false),
-	selectedID(ReturnGame),
+	selectedID(None),
 	activeID(None)
 {
 	SellingButton HpBtn = { IncreaseHP , L"\u751f\u547d\u002b" , 100};
@@ -122,13 +122,12 @@ void DialogBox::setOption(const int increasedHP, const int increasedAtk, const i
 
 void DialogBox::Transaction(SellingOption selected)
 {
-	if (buyer->p_money >= mPrice)
+	if (buyer->p_money >= mPrice && selected != None)
 	{
 		buyer->p_money -= mPrice;
 	}
 	else
 	{
-		std::cout << "no money";
 		return;
 	}
 		
@@ -211,7 +210,7 @@ void DialogBox::drawButton(sf::RenderWindow &l_window)
 	sf::Color selectedColor = { 150, 20, 20 };
 	for (int btn = 0; btn < 3; ++btn)
 	{
-		if (selectedID == static_cast<SellingOption>(btn)) // is selected button
+		if (selectedID == static_cast<SellingOption>(btn+1)) // is selected button
 		{
 			sf::Text buttonTxt(mButtonVec[btn].stringHead + std::to_wstring(mButtonVec[btn].value), chDialogFont, textSize);
 			buttonTxt.setFillColor(selectedColor);
