@@ -99,6 +99,12 @@ MonsterManager::MonsterManager(std::vector<std::vector<int>> &data, TextureManag
 		case 3:
 			monsterVec[monsterID].m_monsterSprite.setTexture(l_textures.get(Textures::Skeleton));
 			break;
+		case 4:
+			monsterVec[monsterID].m_monsterSprite.setTexture(l_textures.get(Textures::SkeletonWarrior));
+			break;
+		case 5:
+			monsterVec[monsterID].m_monsterSprite.setTexture(l_textures.get(Textures::GitCat));
+			break;
 		default:
 			monsterVec[monsterID].m_monsterSprite.setTexture(l_textures.get(Textures::Slime2));
 			break;

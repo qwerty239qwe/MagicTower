@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="來源檔案">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="標頭檔">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="資源檔">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="magicTower.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="texture.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="menu.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="mainGame.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="sound.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="dialogue.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="monster.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="NPC.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="constVal.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="tile.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="game.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="texture.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="menu.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="mainGame.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="sound.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="dialogue.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="monster.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="NPC.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="player.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="constVal.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="tile.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

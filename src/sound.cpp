@@ -43,6 +43,8 @@ SoundManager::SoundManager()
 	load(Sound::Battle, "battle.ogg");
 	load(Sound::Upstair, "upstair.ogg");
 	load(Sound::Dead, "dead.ogg");
+	load(Sound::GetItem, "get.wav");
+	load(Sound::OpenDoor, "openDoor.wav");
 }
 
 void SoundManager::load(Sound::ID id, const std::string &filename)

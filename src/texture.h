@@ -11,7 +11,7 @@ namespace Textures
 		Teacher, TeacherStand, NPC, NPC2,
 		Wall, UpStair, DownStair, RedDoor, BlueDoor, YellowDoor, IronDoor,
 		RedKey, BlueKey, YellowKey, RedPosion, BluePosion, Sword, Shield,
-		Slime, Slime2, Skeleton};
+		Slime, Slime2, Skeleton, SkeletonWarrior, GitCat};
 }
 
 class TextureManager

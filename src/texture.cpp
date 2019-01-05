@@ -26,6 +26,8 @@ TextureManager::TextureManager()
 	load(Textures::Slime, "slime.png");
 	load(Textures::Slime2, "Blueslime.png");
 	load(Textures::Skeleton, "skeleton.png");
+	load(Textures::SkeletonWarrior, "skeletonWarrior.png");
+	load(Textures::GitCat, "githubCat.png");
 }
 
 void TextureManager::load(Textures::ID id, const std::string& filename)

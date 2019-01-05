@@ -205,6 +205,16 @@ bool MainGame::isCollide(int deltaX, int deltaY)
 				mSoundPlayer.play();
 				setUpStairPosition();
 			}
+			else if (mTileData[tileID][4] <= 3 && mTileData[tileID][4] > 0) // Open Doors
+			{
+				mSoundPlayer.setBuffer(mSoundBuffer.get(Sound::OpenDoor));
+				mSoundPlayer.play();
+			}
+			else if (mTileData[tileID][4] > 3 && mTileData[tileID][4] != 11) // Get Items
+			{
+				mSoundPlayer.setBuffer(mSoundBuffer.get(Sound::GetItem));
+				mSoundPlayer.play();
+			}
 			return true;
 		}
 	}

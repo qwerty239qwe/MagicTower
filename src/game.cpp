@@ -60,6 +60,7 @@ void Game::run()
 				if (mainMenu.getActiveID() == 0)
 				{
 					*omniData = FileManager("monsterFile.csv", "npcFile.csv",  "tileFile.csv");
+					mPlayer = Player(mFloor, 1, 0, 10, 10, 100, 1000, 1, 1, 1);
 					*mainGame = MainGame(mTextures, mPlayer, *omniData, inGameDialog, inGameTransaction, mEnglishFont, mChineseFont);
 					mCurrentScreen = Screen::MainGame;
 					bgm.stop();

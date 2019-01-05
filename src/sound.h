@@ -15,7 +15,7 @@ namespace BGM
 namespace Sound
 {
 	enum ID {
-		Walk, Battle, Upstair, Dead
+		Walk, Battle, Upstair, Dead, GetItem, OpenDoor
 	};
 }
 
