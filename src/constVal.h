@@ -99,7 +99,7 @@ namespace Monsterid {
 		Slime = 1,
 		Slime2,
 		Skeleton, SkeletonWarrior,
-		GitCat
+		GitCat, Pikachu
 	};
 }
 class npcSentence

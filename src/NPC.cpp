@@ -39,7 +39,7 @@ NPCmanager::NPCmanager(std::vector<std::vector<int>> &data, TextureManager &l_te
 	npcSentence sentContainer;
 	std::vector<NPC> npcVec(countNPC);
 	sf::String NPCNAME = "NPC";
-	for (int npcID = NPCid::NPC1; npcID != NPCid::NPC12; ++npcID)
+	for (int npcID = NPCid::NPC1; npcID != NPCid::NPC12 + 1; ++npcID)
 	{
 		npcVec[npcID] = NPC(data[npcID][2], data[npcID][0], data[npcID][1], data[npcID][4], data[npcID][3],
 			NPCNAME, (sentContainer.getSentence(static_cast<NPCid::ID>(npcID))));
@@ -61,7 +61,14 @@ NPCmanager::NPCmanager(std::vector<std::vector<int>> &data, TextureManager &l_te
 		default:
 			break;
 		}
-		npcVec[npcID].n_npcSprite.setTexture(l_textures.get(Textures::NPC));
+		if (npcID == 11)
+		{
+			npcVec[npcID].n_npcSprite.setTexture(l_textures.get(Textures::Pikachu));
+		}
+		else
+		{
+			npcVec[npcID].n_npcSprite.setTexture(l_textures.get(Textures::NPC));
+		}
 		npcVec[npcID].n_npcSprite.setPosition(npcVec[npcID].n_xPos * GRID_LEN, npcVec[npcID].n_yPos* GRID_LEN);
 		addNPC(static_cast<NPCid::ID>(npcID), npcVec[npcID]);
 	}
@@ -82,7 +89,7 @@ NPC& NPCmanager::findNPC(NPCid::ID npcID)
 
 void NPCmanager::drawCurrentFloorNPC(sf::RenderWindow &l_window, const int currentFloor)
 {
-	for (int npcID = NPCid::NPC1; npcID != NPCid::NPC12; ++npcID)
+	for (int npcID = NPCid::NPC1; npcID != NPCid::NPC12 + 1; ++npcID)
 	{
 		
 		if (findNPC(static_cast<NPCid::ID>(npcID)).n_floor == currentFloor && !findNPC(static_cast<NPCid::ID>(npcID)).isDead)

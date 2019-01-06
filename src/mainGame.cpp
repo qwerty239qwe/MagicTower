@@ -172,7 +172,7 @@ bool MainGame::isCollide(int deltaX, int deltaY)
 	}
 	
 	
-	for (int npcID = NPCid::NPC1; npcID != NPCid::NPC12; ++npcID)
+	for (int npcID = NPCid::NPC1; npcID != NPCid::NPC12 + 1; ++npcID)
 	{
 		if (xPlayerPos + deltaX == mNPCdata[npcID][0] && yPlayerPos + deltaY == mNPCdata[npcID][1] && mFloor == mNPCdata[npcID][2] && !mNPCs.findNPC(static_cast<NPCid::ID>(npcID)).isDead)
 		{
@@ -186,7 +186,7 @@ bool MainGame::isCollide(int deltaX, int deltaY)
 		}
 	}
 	// deal with Monster
-	for (int monsterID = Monsterid::Monster1; monsterID != Monsterid::Monster60; ++monsterID)
+	for (int monsterID = 0; monsterID < countMonster; ++monsterID)
 	{
 		if (xPlayerPos + deltaX == mMonsterData[monsterID][0] && yPlayerPos + deltaY == mMonsterData[monsterID][1] && mFloor == mMonsterData[monsterID][2] && !mMons.findMonster(static_cast<Monsterid::ID>(monsterID)).isDead)
 		{
@@ -197,7 +197,7 @@ bool MainGame::isCollide(int deltaX, int deltaY)
 		}
 	}
 	// deal with Others
-	for (int tileID = TileID::Wall1; tileID != TileID::Downstair10; ++tileID)
+	for (int tileID = TileID::Wall1; tileID != TileID::Downstair10 + 1; ++tileID)
 	{
 		if (xPlayerPos + deltaX == mTileData[tileID][0] && yPlayerPos + deltaY == mTileData[tileID][1] && mFloor == mTileData[tileID][2] && !mTiles.findTile(static_cast<TileID::ID>(tileID)).isDead)
 		{

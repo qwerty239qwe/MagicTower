@@ -46,15 +46,16 @@ MonsterManager::MonsterManager(std::vector<std::vector<int>> &data, TextureManag
 	addMonsterType(Monsterid::Skeleton, l_textures.get(Textures::Skeleton));
 	addMonsterType(Monsterid::SkeletonWarrior, l_textures.get(Textures::SkeletonWarrior));
 	addMonsterType(Monsterid::GitCat, l_textures.get(Textures::GitCat));
+	addMonsterType(Monsterid::Pikachu, l_textures.get(Textures::Pikachu));
 
 	monsterValue.insert(std::make_pair(Monsterid::Slime, std::vector<int>{36, 12, 4, 1, 5}));
 	monsterValue.insert(std::make_pair(Monsterid::Slime2, std::vector<int>{10, 15, 8, 1, 4}));
 	monsterValue.insert(std::make_pair(Monsterid::Skeleton, std::vector<int>{42, 25, 16, 2, 4}));
 	monsterValue.insert(std::make_pair(Monsterid::SkeletonWarrior, std::vector<int>{32, 40, 20, 2, 15}));
 	monsterValue.insert(std::make_pair(Monsterid::GitCat, std::vector<int>{105, 85, 40, 8, 80}));
+	monsterValue.insert(std::make_pair(Monsterid::Pikachu, std::vector<int>{220, 120, 60, 8, 80}));
 
-
-	for (int monsterID = Monsterid::Monster1; monsterID != Monsterid::Monster60; ++monsterID)
+	for (int monsterID = 0; monsterID < countMonster; ++monsterID)
 	{
 		monsterVec[monsterID] = Monster(data[monsterID][2], data[monsterID][0], data[monsterID][1], data[monsterID][4], data[monsterID][3],
 			monsterValue.find(static_cast<Monsterid::Type>(data[monsterID][4]))->second.at(0), 
@@ -96,7 +97,7 @@ sf::Texture& MonsterManager::findMonsterTexture(Monsterid::Type monsterType) // 
 
 void MonsterManager::drawCurrentFloorMonster(sf::RenderWindow &l_window, const int currentFloor)
 {
-	for (int monsterID = Monsterid::Monster1; monsterID != Monsterid::Monster60; ++monsterID)
+	for (int monsterID = Monsterid::Monster1; monsterID < countMonster; ++monsterID)
 	{
 
 		if (findMonster(static_cast<Monsterid::ID>(monsterID)).m_floor == currentFloor && !findMonster(static_cast<Monsterid::ID>(monsterID)).isDead)
@@ -109,7 +110,7 @@ void MonsterManager::drawCurrentFloorMonster(sf::RenderWindow &l_window, const i
 std::vector<Monsterid::Type> MonsterManager::getMonsterType(const int currentFloor)
 {
 	std::vector<Monsterid::Type> monsterTypeVec;
-	for (int monsterID = Monsterid::Monster1; monsterID != Monsterid::Monster60; ++monsterID)
+	for (int monsterID = Monsterid::Monster1; monsterID < countMonster; ++monsterID)
 	{
 
 		if (findMonster(static_cast<Monsterid::ID>(monsterID)).m_floor == currentFloor && !findMonster(static_cast<Monsterid::ID>(monsterID)).isDead)

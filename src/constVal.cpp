@@ -114,13 +114,13 @@ void FileManager::loadFile(const std::string &fileName, std::vector<std::vector<
 				{
 					std::getline(file, fline[col], ',');
 					data[row][col] = std::stoi(fline[col]);
-					//std::cout << data[row][col] << ' ';
+					
 				}
 				else
 				{
 					std::getline(file, fline[col], '\n');
 					data[row][col] = std::stoi(fline[col]);
-					//std::cout << data[row][col] << '\n';
+					
 				}
 			}
 		}

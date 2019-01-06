@@ -84,7 +84,7 @@ TileManager::TileManager(std::vector<std::vector<int>> &data, TextureManager &l_
 {
 	std::vector<Tile> tileVec(countTile);
 
-	for (int tileID = TileID::Wall1; tileID != TileID::Downstair10; ++tileID)
+	for (int tileID = TileID::Wall1; tileID != TileID::Downstair10 + 1; ++tileID)
 	{
 		tileVec[tileID] = Tile(data[tileID][2], data[tileID][0], data[tileID][1], data[tileID][4], data[tileID][3]);
 		switch (data[tileID][4])
@@ -157,7 +157,7 @@ Tile& TileManager::findTile(TileID::ID tileID)
 
 void TileManager::drawCurrentFloorTile(sf::RenderWindow &l_window, const int currentFloor)
 {
-	for (int tileID = TileID::Wall1; tileID != TileID::Downstair10; ++tileID)
+	for (int tileID = TileID::Wall1; tileID != TileID::Downstair10 + 1; ++tileID)
 	{
 		if (findTile(static_cast<TileID::ID>(tileID)).t_floor == currentFloor && !findTile(static_cast<TileID::ID>(tileID)).isDead)
 		{

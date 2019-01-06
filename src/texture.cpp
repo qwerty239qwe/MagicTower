@@ -28,6 +28,7 @@ TextureManager::TextureManager()
 	load(Textures::Skeleton, "skeleton.png");
 	load(Textures::SkeletonWarrior, "skeletonWarrior.png");
 	load(Textures::GitCat, "githubCat.png");
+	load(Textures::Pikachu, "pikachu.png");
 }
 
 void TextureManager::load(Textures::ID id, const std::string& filename)
