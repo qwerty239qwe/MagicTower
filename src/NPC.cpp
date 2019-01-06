@@ -26,7 +26,7 @@ void NPC::onCollision(Player& n_player, DialogBox &n_dialogBox)
 	}
 	if (this->type == 2)
 	{
-		;//印出對話框;
+		//印出對話框;
 		n_dialogBox.setDialog(n_name, n_dialogue, true, true, n_player);
 		n_dialogBox.setOption(transactionInfo[0], transactionInfo[1], transactionInfo[2], transactionInfo[3]);
 		n_dialogBox.setState(true);
@@ -62,8 +62,6 @@ NPCmanager::NPCmanager(std::vector<std::vector<int>> &data, TextureManager &l_te
 			break;
 		}
 		npcVec[npcID].n_npcSprite.setTexture(l_textures.get(Textures::NPC));
-		npcVec[npcID].n_npcSprite.setScale(sf::Vector2f(10/8, 10/8));
-		//npcVec[npcID].n_npcSprite.setTextureRect(sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(40, 40)));
 		npcVec[npcID].n_npcSprite.setPosition(npcVec[npcID].n_xPos * GRID_LEN, npcVec[npcID].n_yPos* GRID_LEN);
 		addNPC(static_cast<NPCid::ID>(npcID), npcVec[npcID]);
 	}

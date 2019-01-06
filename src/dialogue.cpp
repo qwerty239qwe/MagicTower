@@ -1,8 +1,8 @@
 #include "dialogue.h"
 
-DialogBox::DialogBox(sf::RenderWindow& l_window, std::string &charName, std::vector<std::string> &dialogues, sf::Sprite &dialogBoxSp, sf::Font& engFont, sf::Font& chiFont) :
-	mCharName(charName),
-	mDialogues(dialogues),
+DialogBox::DialogBox(sf::RenderWindow& l_window, sf::Sprite &dialogBoxSp, sf::Font& engFont, sf::Font& chiFont) :
+	mCharName(),
+	mDialogues(),
 	dialogFont(engFont),
 	chDialogFont(chiFont),
 	textColor(sf::Color::Black),
@@ -12,8 +12,8 @@ DialogBox::DialogBox(sf::RenderWindow& l_window, std::string &charName, std::vec
 	dialogBoxSprite(dialogBoxSp),
 	useChFont(false),
 	isTransacting(false),
-	selectedID(None),
-	activeID(None)
+	isMonsterInfoBox(false),
+	selectedID(None)
 {
 	SellingButton HpBtn = { IncreaseHP , L"\u751f\u547d\u002b" , 100};
 	SellingButton AtkBtn = { IncreaseAttack , L"\u653b\u64ca\u002b" , 10 };
@@ -29,6 +29,12 @@ void DialogBox::setDialog(std::string &charName, std::vector<std::string> &dialo
 	useChFont = isChString;
 	mCharName = charName;
 	mDialogues = dialogues;
+}
+
+void DialogBox::setDialog(std::vector<sf::String> &dialogues, bool isChString)
+{
+	useChFont = isChString;
+	mChineseDialogues = dialogues;
 }
 
 void DialogBox::setDialog(sf::String &charName, std::vector<sf::String> &dialogues, bool isChString, bool isMerchant, Player &l_buyer)
@@ -87,7 +93,6 @@ void DialogBox::processEvent(sf::RenderWindow &l_window)
 					}
 				}
 				
-
 				break;
 			default:
 				break;
@@ -153,12 +158,66 @@ void DialogBox::renderDialogBox(sf::RenderWindow& l_window, bool shallClear)
 	}
 	l_window.draw(dialogBoxSprite);
 	drawText(l_window);
+	
 
 	if (shallClear)
 	{
 		l_window.display();
 	}
-	
+}
+
+void DialogBox::renderDialogBox(sf::RenderWindow& l_window, MonsterManager &l_monsManager , std::vector<Monsterid::Type> typeVec, Player &l_player)
+{
+	l_window.draw(dialogBoxSprite);
+	int monsType = 0;
+
+	sf::Text hpHeader(std::string{ "HP" }, dialogFont, 25);
+	sf::Text atkHeader(std::string{ "Atk" }, dialogFont, 25);
+	sf::Text defHeader(std::string{ "Def" }, dialogFont, 25);
+	sf::Text expHeader(std::string{ "EXP" }, dialogFont, 25);
+	sf::Text mnyHeader(std::string{ "Money" }, dialogFont, 25);
+	sf::Text exdHeader(std::string{ "Expected \nDamange" }, dialogFont, 25);
+
+	std::vector<sf::Text> headerVec = { hpHeader, atkHeader, defHeader, expHeader, mnyHeader, exdHeader };
+	for (int i = 0; i < headerVec.size(); ++i)
+	{
+		headerVec.at(i).setFillColor(sf::Color::Color(100, 75, 75));
+		headerVec.at(i).setPosition(((2 + i) * 2 - 1) * GRID_LEN , GRID_LEN);
+		l_window.draw(headerVec.at(i));
+	}
+
+	std::sort(typeVec.begin(), typeVec.end());
+	for (int i = 0; i < typeVec.size(); ++i)
+	{
+		monsType++;
+		sf::Sprite tempSp(l_monsManager.findMonsterTexture(typeVec.at(i)));
+		tempSp.setPosition(1 * GRID_LEN, (monsType + 1) * (GRID_LEN));
+		l_window.draw(tempSp);
+
+		// draw values
+		for (int j = 0; j < 5; ++j)
+		{
+			sf::Text valueTxt(std::to_string(l_monsManager.getMonsterValue(typeVec.at(i)).at(j)), dialogFont, 25);
+			valueTxt.setFillColor(sf::Color::Color(50, 50, 50));
+			valueTxt.setPosition(((2 + j) * 2 - 1) * GRID_LEN, (monsType + 1) * (GRID_LEN) + 20);
+			l_window.draw(valueTxt);
+		}
+		int exd = l_monsManager.calculateExpectedDamage(l_player, typeVec.at(i));
+		sf::Text exdValue;
+		if (exd  == -1)
+		{
+			exdValue = sf::Text(std::string{"Infinity"}, dialogFont, 25);
+		}
+		else
+		{
+			exdValue = sf::Text(std::to_string(exd), dialogFont, 25);
+		}
+		
+		exdValue.setFillColor(sf::Color::Color(50, 50, 50));
+		exdValue.setPosition(((7) * 2 - 1) * GRID_LEN, (monsType + 1) * (GRID_LEN)+20);
+		l_window.draw(exdValue);
+	}
+
 }
 
 bool DialogBox::getState()
@@ -174,28 +233,37 @@ void DialogBox::setState(bool display)
 void DialogBox::drawText(sf::RenderWindow &l_window)
 {
 	float dialogPosY = window_height - dialogBoxSprite.getTexture()->getSize().y;
+	
 	if (!useChFont)
 	{
-		sf::Text nameTxt(mCharName + " : ", dialogFont, textSize);
+		bool hasTitle = (mCharName != "") ? true : false;
+		if (hasTitle)
+		{
+			sf::Text nameTxt(mCharName + " : ", dialogFont, textSize);
+			nameTxt.setPosition(1 * GRID_LEN, dialogPosY + 1 * GRID_LEN);
+			nameTxt.setFillColor(textColor);
+			l_window.draw(nameTxt);
+		}
+		
 		sf::Text dialogTxt(mDialogues.at(displayedTextLine), dialogFont, textSize);
-		nameTxt.setPosition(1 * GRID_LEN, dialogPosY + 1 * GRID_LEN);
-		nameTxt.setFillColor(textColor);
-		dialogTxt.setPosition(1 * GRID_LEN, dialogPosY + 2 * GRID_LEN);
+		dialogTxt.setPosition(1 * GRID_LEN, dialogPosY + (1 + static_cast<int>(hasTitle)) * GRID_LEN);
 		dialogTxt.setFillColor(textColor);
-
-		l_window.draw(nameTxt);
 		l_window.draw(dialogTxt);
 	}
 	else
 	{
-		sf::Text nameTxt(mChCharName + " : ", chDialogFont, textSize);
+		bool hasTitle = (mChCharName != "") ? true : false;
+		if (hasTitle)
+		{
+			sf::Text nameTxt(mChCharName + " : ", chDialogFont, textSize);
+			nameTxt.setPosition(1 * GRID_LEN, dialogPosY + 1 * GRID_LEN);
+			nameTxt.setFillColor(textColor);
+			l_window.draw(nameTxt);
+		}
+		
 		sf::Text dialogTxt(mChineseDialogues.at(displayedTextLine), chDialogFont, textSize);
-		nameTxt.setPosition(1 * GRID_LEN, dialogPosY + 1 * GRID_LEN);
-		nameTxt.setFillColor(textColor);
-		dialogTxt.setPosition(1 * GRID_LEN, dialogPosY + 2 * GRID_LEN);
+		dialogTxt.setPosition(1 * GRID_LEN, dialogPosY + (1 + static_cast<int>(hasTitle)) * GRID_LEN);
 		dialogTxt.setFillColor(textColor);
-
-		l_window.draw(nameTxt);
 		l_window.draw(dialogTxt);
 	}
 	if (isTransacting)
@@ -226,6 +294,7 @@ void DialogBox::drawButton(sf::RenderWindow &l_window)
 		}
 	}
 }
+
 
 void DialogBox::resetTextLine()
 {

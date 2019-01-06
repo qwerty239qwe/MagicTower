@@ -14,7 +14,7 @@ class MainGame
 {
 public :
 	MainGame() { ; }
-	MainGame(TextureManager &l_textures, Player &l_player, FileManager &l_omniData ,DialogBox &l_dialogBox, DialogBox &l_transactionBox, sf::Font& l_EnglishFont, sf::Font& l_ChineseFont);
+	MainGame(TextureManager &l_textures, Player &l_player, FileManager &l_omniData ,DialogBox &l_dialogBox, DialogBox &l_transactionBox, DialogBox &l_monsInfoBox, sf::Font& l_EnglishFont, sf::Font& l_ChineseFont);
 	void processEvents(sf::RenderWindow &l_window, const sf::Time &timePast);
 	void update();
 	void render(sf::RenderWindow &l_window);
@@ -38,6 +38,7 @@ private:
 	std::vector<std::vector<int>> mTileData;
 	DialogBox mDialogBox;
 	DialogBox mTransactionBox;
+	DialogBox mMonsInfoBox;
 	Player *mPlayer;
 	FileManager *mOmniData;
 
@@ -47,6 +48,7 @@ private:
 	sf::Font mChineseFont;
 
 	bool mIsCoolingDown;
+	bool mIsDisplayingMonsInfo;
 
 	bool isCollide(int deltaX, int deltaY);
 	int xPlayerPos;

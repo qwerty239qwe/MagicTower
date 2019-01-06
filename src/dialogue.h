@@ -4,6 +4,7 @@
 #include <vector>
 #include "constVal.h"
 #include "player.h"
+#include "monster.h"
 
 enum SellingOption {
 	None,
@@ -24,11 +25,13 @@ class DialogBox
 {
 public : 
 	DialogBox() { ; }
-	DialogBox(sf::RenderWindow& l_window, std::string &charName ,std::vector<std::string> &dialogues, sf::Sprite &dialogBoxSp, sf::Font& engFont, sf::Font& chiFont); // take in a vector of strings
+	DialogBox(sf::RenderWindow& l_window, sf::Sprite &dialogBoxSp, sf::Font& engFont, sf::Font& chiFont); // take in a vector of strings
 	void processEvent(sf::RenderWindow &l_window);
 	void renderDialogBox(sf::RenderWindow& l_window, bool shallClear);
+	void renderDialogBox(sf::RenderWindow& l_window, MonsterManager &l_monsManager, std::vector<Monsterid::Type> typeVec, Player &l_player);
 	bool getState();
 	void setDialog(std::string &charName, std::vector<std::string> &dialogues, bool isChString);
+	void setDialog(std::vector<sf::String> &dialogues, bool isChString);	// for infomation
 	void setDialog(sf::String &charName, std::vector<sf::String> &dialogues, bool isChString, bool isMerchant, Player &l_buyer);
 	void setOption(const int increasedHP, const int increasedAtk, const int increasedDef, const int l_price);
 	
@@ -38,11 +41,14 @@ private:
 	void Transaction(SellingOption selected);
 	void changeSelection(int delta);
 	void drawText(sf::RenderWindow &l_window);
+	void drawButton(sf::RenderWindow &l_window);
+
 	sf::Sprite dialogBoxSprite;
 	sf::Font dialogFont;
 	sf::Font chDialogFont;
 	sf::Color textColor;
 	// Flags
+	bool isMonsterInfoBox;
 	bool useChFont;
 	bool isTransacting;
 	bool isDisplayed;
@@ -52,7 +58,7 @@ private:
 	SellingOption activeID;
 	int mPrice;
 	std::vector<SellingButton> mButtonVec; // 0 = hp, 1 = atk, 2 = def
-	void drawButton(sf::RenderWindow &l_window);
+	
 	Player* buyer;
 
 	int textSize;
@@ -61,5 +67,4 @@ private:
 	sf::String mChCharName;
 	std::vector<std::string> mDialogues;
 	std::vector<sf::String> mChineseDialogues;
-	
 };

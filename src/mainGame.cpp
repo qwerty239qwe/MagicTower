@@ -1,10 +1,10 @@
 #include "mainGame.h"
 
 
-MainGame::MainGame(TextureManager &l_textures, Player &l_player, FileManager &l_omniData, DialogBox &l_dialogBox, DialogBox &l_transactionBox, sf::Font& l_EnglishFont, sf::Font& l_ChineseFont) :
+MainGame::MainGame(TextureManager &l_textures, Player &l_player, FileManager &l_omniData, DialogBox &l_dialogBox, DialogBox &l_transactionBox, DialogBox &l_monsInfoBox, sf::Font& l_EnglishFont, sf::Font& l_ChineseFont) :
 	xPlayerPos(5), yPlayerPos(9), 
-	sleepTime(sf::seconds(0.01)), 
-	mDialogBox(l_dialogBox), mTransactionBox(l_transactionBox),
+	sleepTime(sf::seconds(0.005)), 
+	mDialogBox(l_dialogBox), mTransactionBox(l_transactionBox), mMonsInfoBox(l_monsInfoBox),
 	mEnglishFont(l_EnglishFont), mChineseFont(l_ChineseFont), mFloor(0)
 {
 	
@@ -17,13 +17,11 @@ MainGame::MainGame(TextureManager &l_textures, Player &l_player, FileManager &l_
 	mMons = MonsterManager(mMonsterData, *mTextures);
 	mTiles = TileManager(mTileData, *mTextures);
 	mPlayer = &l_player;
-	mPlayer->p_floor = mFloor;
 	setObjPosition(mPlayer->p_playerSprite, xPlayerPos, yPlayerPos);
 	mPlayer->p_playerSprite.setTexture(mTextures->get(Textures::Teacher), true);
 	mPlayer->p_playerSprite.setScale(sf::Vector2f(2, 2));
 	mPlayer->p_playerSprite.setTextureRect(sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(40, 40)));
 	mMap.setTexture(mTextures->get(Textures::Map));
-	
 }
 
 void MainGame::processEvents(sf::RenderWindow& l_window, const sf::Time &timePast)
@@ -56,11 +54,8 @@ void MainGame::processEvents(sf::RenderWindow& l_window, const sf::Time &timePas
 			{
 				handlePlayerInput(event.key.code, true);
 			}
-			else if (event.type == sf::Event::KeyReleased)
-				handlePlayerInput(event.key.code, false);
 		}
 	}
-	
 }
 
 void MainGame::update()
@@ -85,55 +80,69 @@ void MainGame::render(sf::RenderWindow &l_window)
 	{
 		mTransactionBox.renderDialogBox(l_window, false);
 	}
+	if (mIsDisplayingMonsInfo)
+	{
+		mMonsInfoBox.renderDialogBox(l_window, mMons, mMons.getMonsterType(mFloor), *mPlayer);
+	}
 
 	l_window.display();
 }
 
 void MainGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
 {
-	if (!mIsCoolingDown && isPressed)
+	if (!mIsCoolingDown)
 	{
-		mSoundPlayer.setBuffer(mSoundBuffer.get(Sound::Walk));
-		mSoundPlayer.play();
-		if (key == sf::Keyboard::Up)
+		if ((key == sf::Keyboard::Up || key == sf::Keyboard::Down || key == sf::Keyboard::Left || key == sf::Keyboard::Right) && !mIsDisplayingMonsInfo)
 		{
-			mPlayer->p_playerSprite.setTextureRect(sf::IntRect(sf::Vector2i(12 * 44, 0), sf::Vector2i(44, 44)));
-			if (!isCollide(0, -1))
+			mSoundPlayer.setBuffer(mSoundBuffer.get(Sound::Walk));
+			mSoundPlayer.play();
+			mIsCoolingDown = true;
+			if (key == sf::Keyboard::Up)
 			{
-				yPlayerPos--;
-				
-				mIsCoolingDown = true;
+				mPlayer->p_playerSprite.setTextureRect(sf::IntRect(sf::Vector2i(12 * 44, 0), sf::Vector2i(44, 44)));
+				if (!isCollide(0, -1))
+				{
+					yPlayerPos--;
+				}
+			}
+			else if (key == sf::Keyboard::Down)
+			{
+				mPlayer->p_playerSprite.setTextureRect(sf::IntRect(sf::Vector2i(0 * 44, 0), sf::Vector2i(44, 44)));
+				if (!isCollide(0, 1))
+				{
+					yPlayerPos++;
+				}
+			}
+			else if (key == sf::Keyboard::Left)
+			{
+				mPlayer->p_playerSprite.setTextureRect(sf::IntRect(sf::Vector2i(4 * 44, 0), sf::Vector2i(44, 44)));
+				if (!isCollide(-1, 0))
+				{
+					xPlayerPos--;
+				}
+			}
+			else if (key == sf::Keyboard::Right)
+			{
+				mPlayer->p_playerSprite.setTextureRect(sf::IntRect(sf::Vector2i(8 * 44, 0), sf::Vector2i(44, 44)));
+				if (!isCollide(1, 0))
+				{
+					xPlayerPos++;
+				}
 			}
 		}
-		else if (key == sf::Keyboard::Down)
+		
+	
+		if (key == sf::Keyboard::M)
 		{
-			mPlayer->p_playerSprite.setTextureRect(sf::IntRect(sf::Vector2i(0 * 44, 0), sf::Vector2i(44, 44)));
-			if (!isCollide(0, 1))
-			{
-				yPlayerPos++;
-				
-				mIsCoolingDown = true;
-			}
+			// adjust sound volume
+			if (mSoundPlayer.getVolume() - 25.f >= 0.f)
+				mSoundPlayer.setVolume(mSoundPlayer.getVolume() - 25.f);
+			else 
+				mSoundPlayer.setVolume(100.f);
 		}
-		else if (key == sf::Keyboard::Left)
+		else if (key == sf::Keyboard::I)
 		{
-			mPlayer->p_playerSprite.setTextureRect(sf::IntRect(sf::Vector2i(4 * 44, 0), sf::Vector2i(44, 44)));
-			if (!isCollide(-1, 0))
-			{
-				xPlayerPos--;
-				
-				mIsCoolingDown = true;
-			}
-		}
-		else if (key == sf::Keyboard::Right)
-		{
-			mPlayer->p_playerSprite.setTextureRect(sf::IntRect(sf::Vector2i(8 * 44, 0), sf::Vector2i(44, 44)));
-			if (!isCollide(1, 0))
-			{
-				xPlayerPos++;
-				
-				mIsCoolingDown = true;
-			}
+			mIsDisplayingMonsInfo = !mIsDisplayingMonsInfo;
 		}
 	}
 }
@@ -387,3 +396,4 @@ void MainGame::setUpStairPosition()
 		break;
 	}
 }
+

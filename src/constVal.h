@@ -1,9 +1,10 @@
 #pragma once
-#include <string>
-#include <vector>
-#include <map>
+#include <string>					// std::string
+#include <vector>					// std::vector
+#include <map>						// std::map
 #include <fstream>
 #include <iostream>
+#include <algorithm>				// std::sort
 #include <SFML/Graphics.hpp>
 
 const int window_width = 1430, window_height = 880;
@@ -93,6 +94,12 @@ namespace Monsterid {
 		Monster51,Monster52,Monster53,Monster54,Monster55,
 		Monster56,Monster57,Monster58,Monster59,Monster60
 
+	};
+	enum Type {
+		Slime = 1,
+		Slime2,
+		Skeleton, SkeletonWarrior,
+		GitCat
 	};
 }
 class npcSentence

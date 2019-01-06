@@ -16,9 +16,11 @@ Game::Game()
 
 void Game::run()
 {
+	//time
 	sf::Clock clock;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 
+	// bgm
 	BGMmanager bgm;
 	Menu mainMenu(mBGSprite, mEnglishFont, sf::Color::Color(50, 50, 50, 150), sf::Color::Color(180, 50, 50,255), bgm);
 	
@@ -32,17 +34,19 @@ void Game::run()
 	//test info
 	std::string firstLine = "This line shall be printed";
 	std::string secondLine = "This line shall not be printed";
-	std::string name = "Introduction";
+	std::string infoTitle = "";
 	std::vector<std::string> strvec;
 	strvec.push_back(firstLine);
 	strvec.push_back(secondLine);
-	DialogBox infoDialog(mWindow, name, strvec, mDBBig, mEnglishFont, mChineseFont);
-	DialogBox inGameDialog(mWindow, name, strvec, mDBSmall, mEnglishFont, mChineseFont);
-	DialogBox inGameTransaction(mWindow, name, strvec, mDBMedium, mEnglishFont, mChineseFont);
+	DialogBox infoDialog(mWindow, mDBBig, mEnglishFont, mChineseFont);
+	DialogBox monsInfoDialog(mWindow, mDBBig, mEnglishFont, mChineseFont);
+	DialogBox inGameDialog(mWindow, mDBSmall, mEnglishFont, mChineseFont);
+	DialogBox inGameTransaction(mWindow, mDBMedium, mEnglishFont, mChineseFont);
 
 	// main game
-	int mFloor = 1;
-	Player mPlayer(mFloor, 1, 0, 10, 10, 100, 1000, 1, 1, 1);
+	Player mPlayer(1, 0, 10, 10, 100, 1000, 1, 1, 1);
+
+	infoDialog.setDialog(infoTitle, strvec, false);
 	MainGame* mainGame = new MainGame;
 	FileManager* omniData = new FileManager;
 
@@ -60,8 +64,8 @@ void Game::run()
 				if (mainMenu.getActiveID() == 0)
 				{
 					*omniData = FileManager("monsterFile.csv", "npcFile.csv",  "tileFile.csv");
-					mPlayer = Player(mFloor, 1, 0, 10, 10, 100, 1000, 1, 1, 1);
-					*mainGame = MainGame(mTextures, mPlayer, *omniData, inGameDialog, inGameTransaction, mEnglishFont, mChineseFont);
+					mPlayer = Player(1, 0, 10, 10, 100, 1000, 1, 1, 1);
+					*mainGame = MainGame(mTextures, mPlayer, *omniData, inGameDialog, inGameTransaction, monsInfoDialog, mEnglishFont, mChineseFont);
 					mCurrentScreen = Screen::MainGame;
 					bgm.stop();
 					bgm.play(BGM::mainBGM);
@@ -69,7 +73,7 @@ void Game::run()
 				else if (mainMenu.getActiveID() == 1)
 				{
 					*omniData = FileManager("monsterFile_save.csv", "npcFile_save.csv",  "tileFile_save.csv");
-					*mainGame = MainGame(mTextures, mPlayer, *omniData, inGameDialog, inGameTransaction, mEnglishFont, mChineseFont);
+					*mainGame = MainGame(mTextures, mPlayer, *omniData, inGameDialog, inGameTransaction, monsInfoDialog, mEnglishFont, mChineseFont);
 					mCurrentScreen = Screen::MainGame;
 					bgm.stop();
 					bgm.play(BGM::mainBGM);
@@ -119,6 +123,7 @@ void Game::run()
 			infoDialog.renderDialogBox(mWindow, true);
 			break;
 		case (Screen::EndScreen):
+			bgm.stop();
 			timeSinceLastUpdate += clock.restart();
 			sf::Event event;
 
@@ -133,6 +138,8 @@ void Game::run()
 					{
 						mainMenu.resetActiveID();
 						mCurrentScreen = Screen::MainMenu;
+						bgm.stop();
+						bgm.play(BGM::menuBGM);
 					}
 						
 				}
