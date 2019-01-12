@@ -3,7 +3,7 @@
 #include <cstring>
 #include <iostream>
 #include <map>
-#include "constVal.h"
+#include "initialize.h"
 
 namespace BGM
 {

@@ -3,7 +3,7 @@
 #include <string>
 #include "texture.h"
 #include "Player.h"
-#include "constVal.h"
+#include "initialize.h"
 #include "dialogue.h"
 
 

@@ -11,8 +11,8 @@ Menu::Menu(sf::Sprite &backgroundImg, sf::Font buttonFont, sf::Color buttonColor
 {
 	bgm.play(BGM::menuBGM);
 	Button btn1{ GameStart, "Game Start"};
-	Button btn2{ Load, "Load Game"};
-	Button btn3{ Info, "Information"};
+	Button btn2{ Load, "Information"};
+	Button btn3{ Info, "Credits"};
 	buttonVec.push_back(btn1);
 	buttonVec.push_back(btn2);
 	buttonVec.push_back(btn3);

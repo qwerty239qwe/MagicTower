@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "texture.h"
 #include "sound.h"
-#include "constVal.h"
+#include "initialize.h"
 #include "dialogue.h"
 #include "player.h"
 #include "NPC.h"
@@ -42,15 +42,17 @@ private:
 	Player *mPlayer;
 	FileManager *mOmniData;
 
-
+	// map and fonts
 	sf::Sprite mMap;
 	sf::Font mEnglishFont;
 	sf::Font mChineseFont;
 
+	// flags
 	bool mIsCoolingDown;
 	bool mIsDisplayingMonsInfo;
-
 	bool isCollide(int deltaX, int deltaY);
+
+	// player info
 	int xPlayerPos;
 	int yPlayerPos;
 	int mFloor;
@@ -58,6 +60,5 @@ private:
 	void setUpStairPosition();
 	void setDownStairPosition();
 	void renderAttributes(sf::RenderWindow& l_window);
-	// void loadGame(bool loadExistGame);
 
 };

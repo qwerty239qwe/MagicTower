@@ -8,6 +8,7 @@ DialogBox::DialogBox(sf::RenderWindow& l_window, sf::Sprite &dialogBoxSp, sf::Fo
 	textColor(sf::Color::Black),
 	textSize(30),
 	isDisplayed(false),
+	isCredits(false),
 	displayedTextLine(0),
 	dialogBoxSprite(dialogBoxSp),
 	useChFont(false),
@@ -18,16 +19,41 @@ DialogBox::DialogBox(sf::RenderWindow& l_window, sf::Sprite &dialogBoxSp, sf::Fo
 	SellingButton HpBtn = { IncreaseHP , L"\u751f\u547d\u002b" , 100};
 	SellingButton AtkBtn = { IncreaseAttack , L"\u653b\u64ca\u002b" , 10 };
 	SellingButton DefBtn = { IncreaseDefense , L"\u9632\u79a6\u002b" , 10 };
-	//SellingButton rtnBtn = { ReturnGame , L"\u9632\u79a6\u002b" , 10 };
+
 	mButtonVec.push_back(HpBtn);
 	mButtonVec.push_back(AtkBtn);
 	mButtonVec.push_back(DefBtn);
+}
+
+DialogBox::DialogBox(sf::RenderWindow& l_window, sf::Sprite &dialogBoxSp, sf::Font& engFont, sf::Font& chiFont, std::vector<sf::Sprite> &picVec) :
+	mCharName(),
+	mDialogues(),
+	dialogFont(engFont),
+	chDialogFont(chiFont),
+	textColor(sf::Color::Black),
+	textSize(30),
+	displayedTextLine(0),
+	dialogBoxSprite(dialogBoxSp),
+	isDisplayed(false),
+	isCredits(true),
+	useChFont(false),
+	isTransacting(false),
+	isMonsterInfoBox(false),
+	selectedID(None)
+{
+	mPicVec = picVec;
 }
 
 void DialogBox::setDialog(std::string &charName, std::vector<std::string> &dialogues, bool isChString)
 {
 	useChFont = isChString;
 	mCharName = charName;
+	mDialogues = dialogues;
+}
+
+void DialogBox::setDialog(std::vector<std::string> &dialogues, bool isChString)
+{
+	useChFont = isChString;
 	mDialogues = dialogues;
 }
 
@@ -74,9 +100,9 @@ void DialogBox::processEvent(sf::RenderWindow &l_window)
 				{
 					Transaction(selectedID);
 				}
-				if (useChFont)
+				if (useChFont )
 				{
-					if (displayedTextLine == mChineseDialogues.size() - 1)
+					if (displayedTextLine == mChineseDialogues.size() - 1 || isCredits)
 						isDisplayed = false;
 					else
 					{
@@ -85,7 +111,7 @@ void DialogBox::processEvent(sf::RenderWindow &l_window)
 				}
 				else
 				{
-					if (displayedTextLine == mDialogues.size() - 1)
+					if (displayedTextLine == mDialogues.size() - 1 || isCredits)
 						isDisplayed = false;
 					else
 					{
@@ -157,9 +183,16 @@ void DialogBox::renderDialogBox(sf::RenderWindow& l_window, bool shallClear)
 		l_window.clear();
 	}
 	l_window.draw(dialogBoxSprite);
-	drawText(l_window);
-	
 
+	if (isCredits)
+	{
+		drawCredits(l_window);
+	}
+	else
+	{
+		drawText(l_window);
+	}
+	
 	if (shallClear)
 	{
 		l_window.display();
@@ -295,6 +328,28 @@ void DialogBox::drawButton(sf::RenderWindow &l_window)
 	}
 }
 
+void DialogBox::drawCredits(sf::RenderWindow &l_window)
+{
+	sf::Text creditsHead("CREDITS", dialogFont, textSize * 2);
+	creditsHead.setFillColor(sf::Color(100, 50, 50));
+	creditsHead.setPosition(l_window.getSize().x / 2 - creditsHead.getGlobalBounds().width / 2, 1 * GRID_LEN);
+	l_window.draw(creditsHead);
+	for (int p = 0; p < 4; p++)
+	{
+		mPicVec.at(p).setPosition((2 + 8 * ((p ) % 2)) * GRID_LEN, (3 + 4 * ((p ) / 2))* GRID_LEN);
+		sf::Text creditsTxt(mDialogues.at(p), dialogFont, textSize*1.2);
+		creditsTxt.setFillColor(textColor);
+		creditsTxt.setPosition((2 + 8 * ((p ) % 2) + 1) * GRID_LEN, (3 + 4 * ((p ) / 2))* GRID_LEN);
+
+		sf::Text creditsWorkTxt(mChineseDialogues.at(p), chDialogFont, textSize);
+		creditsWorkTxt.setFillColor(textColor);
+		creditsWorkTxt.setPosition((2 + 8 * ((p) % 2) + 1) * GRID_LEN, (3 + 4 * ((p) / 2) + 1)* GRID_LEN);
+
+		l_window.draw(creditsTxt);
+		l_window.draw(creditsWorkTxt);
+		l_window.draw(mPicVec.at(p));
+	}
+}
 
 void DialogBox::resetTextLine()
 {

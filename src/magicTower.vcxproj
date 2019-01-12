@@ -163,7 +163,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="constVal.cpp" />
+    <ClCompile Include="initialize.cpp" />
     <ClCompile Include="dialogue.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="magicTower.cpp" />
@@ -177,7 +177,7 @@
     <ClCompile Include="tile.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="constVal.h" />
+    <ClInclude Include="initialize.h" />
     <ClInclude Include="dialogue.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="mainGame.h" />

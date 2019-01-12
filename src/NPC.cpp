@@ -48,15 +48,15 @@ NPCmanager::NPCmanager(std::vector<std::vector<int>> &data, TextureManager &l_te
 		{
 		case NPCid::NPC6:
 			l_transaction = { 100, 10, 10, 100 };
-			npcVec[npcID].transactionInfo = l_transaction;	// vector should deep copy here
+			npcVec[npcID].transactionInfo = l_transaction;	// deep copy
 			break;
 		case NPCid::NPC8:
 			l_transaction = { 250, 25, 25, 200 };
-			npcVec[npcID].transactionInfo = l_transaction; // vector should deep copy here
+			npcVec[npcID].transactionInfo = l_transaction; // deep copy
 			break;
 		case NPCid::NPC9:
 			l_transaction = { 450, 45, 45, 300 };
-			npcVec[npcID].transactionInfo = l_transaction; // vector should deep copy here
+			npcVec[npcID].transactionInfo = l_transaction; // deep copy 
 			break;
 		default:
 			break;
@@ -74,7 +74,7 @@ NPCmanager::NPCmanager(std::vector<std::vector<int>> &data, TextureManager &l_te
 	}
 }
 
-void NPCmanager::addNPC(NPCid::ID npcID, NPC& npcEntity)
+void NPCmanager::addNPC(NPCid::ID npcID, NPC& npcEntity) 
 {
 	std::unique_ptr<NPC> npcPtr(new NPC());
 	*npcPtr = npcEntity;

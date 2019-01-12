@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "texture.h"
 #include "player.h"
-#include "constVal.h"
+#include "initialize.h"
 
 
 class Monster

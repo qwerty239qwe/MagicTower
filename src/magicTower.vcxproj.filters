@@ -45,10 +45,10 @@
     <ClCompile Include="player.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
-    <ClCompile Include="constVal.cpp">
+    <ClCompile Include="tile.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
-    <ClCompile Include="tile.cpp">
+    <ClCompile Include="initialize.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
   </ItemGroup>
@@ -80,10 +80,10 @@
     <ClInclude Include="player.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
-    <ClInclude Include="constVal.h">
+    <ClInclude Include="tile.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
-    <ClInclude Include="tile.h">
+    <ClInclude Include="initialize.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>
